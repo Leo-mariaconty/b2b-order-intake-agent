@@ -12,8 +12,8 @@
       "exceptions": [
         {
           "controle": "quantite",
-          "pourquoi": "10 n'est pas un multiple du colisage (6).",
-          "suggestion": []
+          "pourquoi": "10 n'est pas un multiple du colisage (6). Quantités possibles les plus proches : 6 ou 12.",
+          "suggestion": ["6", "12"]
         }
       ]
     },

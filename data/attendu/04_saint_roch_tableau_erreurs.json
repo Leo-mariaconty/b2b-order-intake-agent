@@ -24,7 +24,7 @@
       "exceptions": [
         {
           "controle": "quantite",
-          "pourquoi": "120 dépasse le plafond par ligne (100). Probablement 12.",
+          "pourquoi": "120 dépasse le plafond par ligne (100). Le script ne propose pas de correction : ce serait deviner.",
           "suggestion": []
         }
       ]

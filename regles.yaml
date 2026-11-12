@@ -1,0 +1,32 @@
+# ---------------------------------------------------------------------------
+# Règles métier du contrôle des commandes
+#
+# Ce fichier appartient à l'équipe ADV. Vous pouvez changer les valeurs
+# ci-dessous sans toucher au code. Après une modification, relancez le script :
+#     python -m src.main
+# Si une valeur est mal écrite, le script s'arrête et dit laquelle.
+# Mode d'emploi détaillé : docs/guide_adv.md
+# ---------------------------------------------------------------------------
+
+# Quantité maximale acceptée sur une ligne de commande, en unités.
+# Au-dessus, la ligne part en exception (exemple : 120 saisi à la place de 12).
+plafond_quantite_par_ligne: 100
+
+# true  : la quantité doit être un multiple du colisage du produit.
+# false : on accepte n'importe quelle quantité entière.
+colisage_obligatoire: true
+
+# Unités acceptées quand l'email en précise une. Elles veulent toutes dire
+# « à l'unité ». Toute autre unité (cartons, colis, palettes...) part en
+# exception, car le nombre d'unités n'est alors pas écrit dans l'email.
+unites_acceptees:
+  - unité
+  - unités
+  - pièce
+  - pièces
+
+# Quand une ligne n'a pas de code produit valable, le script cherche dans le
+# catalogue les produits dont le nom ressemble, pour les proposer à la personne
+# qui traitera l'exception. Il ne valide jamais seul.
+# Valeur entre 0 et 1. Plus elle est haute, moins il y a de propositions.
+seuil_ressemblance: 0.8
