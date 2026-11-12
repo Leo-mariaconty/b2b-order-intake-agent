@@ -1,0 +1,39 @@
+{
+  "email_source": "01_tilleuls_texte_propre.txt",
+  "lisible": true,
+  "motif_illisible": null,
+  "client": {
+    "code_client": "C1003",
+    "nom": "Pharmacie des Tilleuls",
+    "code_postal": "44990",
+    "ville": "Saint-Avel-des-Marais"
+  },
+  "reference_commande": "CDE-TIL-2311",
+  "date_email": "03/11/2026 09:12",
+  "lignes": [
+    {
+      "texte_source": "12 x Crème mains réparatrice 75 ml (EAN 2055501001023)",
+      "reference": null,
+      "ean": "2055501001023",
+      "libelle": "Crème mains réparatrice 75 ml",
+      "quantite": "12",
+      "unite": null
+    },
+    {
+      "texte_source": "6 x Gel douche surgras 400 ml (EAN 2055501001047)",
+      "reference": null,
+      "ean": "2055501001047",
+      "libelle": "Gel douche surgras 400 ml",
+      "quantite": "6",
+      "unite": null
+    },
+    {
+      "texte_source": "24 x Stick lèvres nourrissant 4 g (EAN 2055501001085)",
+      "reference": null,
+      "ean": "2055501001085",
+      "libelle": "Stick lèvres nourrissant 4 g",
+      "quantite": "24",
+      "unite": null
+    }
+  ]
+}

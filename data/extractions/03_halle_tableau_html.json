@@ -1,0 +1,39 @@
+{
+  "email_source": "03_halle_tableau_html.html",
+  "lisible": true,
+  "motif_illisible": null,
+  "client": {
+    "code_client": "C1004",
+    "nom": "Pharmacie de la Halle",
+    "code_postal": "33990",
+    "ville": "Castelroc"
+  },
+  "reference_commande": "H-2026-118",
+  "date_email": "05/11/2026 11:03",
+  "lignes": [
+    {
+      "texte_source": "VB-101 | Crème hydratante visage 50 ml | 6",
+      "reference": "VB-101",
+      "ean": null,
+      "libelle": "Crème hydratante visage 50 ml",
+      "quantite": "6",
+      "unite": null
+    },
+    {
+      "texte_source": "VB-103 | Lait corps nourrissant 200 ml | 10",
+      "reference": "VB-103",
+      "ean": null,
+      "libelle": "Lait corps nourrissant 200 ml",
+      "quantite": "10",
+      "unite": null
+    },
+    {
+      "texte_source": "VB-110 | Eau micellaire peaux sensibles 400 ml | 12",
+      "reference": "VB-110",
+      "ean": null,
+      "libelle": "Eau micellaire peaux sensibles 400 ml",
+      "quantite": "12",
+      "unite": null
+    }
+  ]
+}

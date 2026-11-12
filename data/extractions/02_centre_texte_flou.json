@@ -1,0 +1,39 @@
+{
+  "email_source": "02_centre_texte_flou.txt",
+  "lisible": true,
+  "motif_illisible": null,
+  "client": {
+    "code_client": null,
+    "nom": "Pharmacie du Centre",
+    "code_postal": null,
+    "ville": null
+  },
+  "reference_commande": null,
+  "date_email": "04/11/2026 18:47",
+  "lignes": [
+    {
+      "texte_source": "2 cartons du déo",
+      "reference": null,
+      "ean": null,
+      "libelle": "déo",
+      "quantite": "2",
+      "unite": "cartons"
+    },
+    {
+      "texte_source": "la crème mains, 12 comme d'habitude",
+      "reference": null,
+      "ean": null,
+      "libelle": "crème mains",
+      "quantite": "12",
+      "unite": null
+    },
+    {
+      "texte_source": "et 6 gels douche",
+      "reference": null,
+      "ean": null,
+      "libelle": "gels douche",
+      "quantite": "6",
+      "unite": null
+    }
+  ]
+}

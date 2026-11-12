@@ -1,0 +1,47 @@
+{
+  "email_source": "05_remparts_bon_pdf.txt",
+  "lisible": true,
+  "motif_illisible": null,
+  "client": {
+    "code_client": "C1007",
+    "nom": "Pharmacie des Remparts",
+    "code_postal": "67990",
+    "ville": "Hautefeuille"
+  },
+  "reference_commande": "BC-2026-0457",
+  "date_email": "09/11/2026 08:40",
+  "lignes": [
+    {
+      "texte_source": "VB-105 | 2055501001054 | Déodorant bille douceur 50 ml | 12",
+      "reference": "VB-105",
+      "ean": "2055501001054",
+      "libelle": "Déodorant bille douceur 50 ml",
+      "quantite": "12",
+      "unite": null
+    },
+    {
+      "texte_source": "VB-107 | 2055501001078 | Shampooing doux usage fréquent 250 ml | 6",
+      "reference": "VB-107",
+      "ean": "2055501001078",
+      "libelle": "Shampooing doux usage fréquent 250 ml",
+      "quantite": "6",
+      "unite": null
+    },
+    {
+      "texte_source": "VB-111 | 2055501001115 | Baume réparateur 40 ml | 12",
+      "reference": "VB-111",
+      "ean": "2055501001115",
+      "libelle": "Baume réparateur 40 ml",
+      "quantite": "12",
+      "unite": null
+    },
+    {
+      "texte_source": "VB-112 | 2055501001122 | Savon surgras 100 g | 36",
+      "reference": "VB-112",
+      "ean": "2055501001122",
+      "libelle": "Savon surgras 100 g",
+      "quantite": "36",
+      "unite": null
+    }
+  ]
+}

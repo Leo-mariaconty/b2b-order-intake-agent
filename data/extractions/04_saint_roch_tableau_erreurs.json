@@ -1,0 +1,47 @@
+{
+  "email_source": "04_saint_roch_tableau_erreurs.txt",
+  "lisible": true,
+  "motif_illisible": null,
+  "client": {
+    "code_client": null,
+    "nom": "Pharmacie Saint-Roch",
+    "code_postal": "13990",
+    "ville": "Port-Lavande"
+  },
+  "reference_commande": null,
+  "date_email": "06/11/2026 15:26",
+  "lignes": [
+    {
+      "texte_source": "2055501001078 | Shampooing doux usage fréquent 250 ml | 12",
+      "reference": null,
+      "ean": "2055501001078",
+      "libelle": "Shampooing doux usage fréquent 250 ml",
+      "quantite": "12",
+      "unite": null
+    },
+    {
+      "texte_source": "2055501001192 | Crème solaire SPF50 visage 50 ml | 6",
+      "reference": null,
+      "ean": "2055501001192",
+      "libelle": "Crème solaire SPF50 visage 50 ml",
+      "quantite": "6",
+      "unite": null
+    },
+    {
+      "texte_source": "2055501001115 | Baume réparateur 40 ml | 120",
+      "reference": null,
+      "ean": "2055501001115",
+      "libelle": "Baume réparateur 40 ml",
+      "quantite": "120",
+      "unite": null
+    },
+    {
+      "texte_source": "2055501001122 | Savon surgras 100 g | 24",
+      "reference": null,
+      "ean": "2055501001122",
+      "libelle": "Savon surgras 100 g",
+      "quantite": "24",
+      "unite": null
+    }
+  ]
+}
