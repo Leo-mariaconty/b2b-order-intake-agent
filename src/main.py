@@ -9,7 +9,11 @@ Chaque email finit soit dans l'import Odoo, soit dans les exceptions : aucun
 n'est ignoré en silence.
 """
 
+import sys
 from pathlib import Path
+
+import yaml
+from pydantic import ValidationError
 
 from src.controler import controler_commande
 from src.rapport import ecrire_rapport
@@ -74,6 +78,15 @@ def traiter(
     return commandes
 
 
+def charger_ou_arreter(fonction_de_chargement, chemin: Path):
+    """Lit un fichier de réglage. S'il contient une erreur, arrête le script
+    avec un message clair, avant d'avoir écrit quoi que ce soit."""
+    try:
+        return fonction_de_chargement(chemin)
+    except (ValidationError, yaml.YAMLError) as erreur:
+        sys.exit(f"Erreur dans {chemin.name} : le script s'arrête sans rien écrire.\n{erreur}")
+
+
 def main():
     commandes = traiter(
         dossier_inbox=RACINE / "data" / "inbox",
@@ -81,8 +94,8 @@ def main():
         dossier_sorties=RACINE / "sorties",
         catalogue=charger_catalogue(RACINE / "data" / "catalogue.csv"),
         clients=charger_clients(RACINE / "data" / "clients.csv"),
-        regles=charger_regles(RACINE / "regles.yaml"),
-        colonnes_odoo=charger_colonnes_odoo(RACINE / "odoo_colonnes.yaml"),
+        regles=charger_ou_arreter(charger_regles, RACINE / "regles.yaml"),
+        colonnes_odoo=charger_ou_arreter(charger_colonnes_odoo, RACINE / "odoo_colonnes.yaml"),
     )
 
     print(f"{len(commandes)} email(s) traité(s)")
