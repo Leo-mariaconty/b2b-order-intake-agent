@@ -1,0 +1,31 @@
+{
+  "email_source": "99_exemple.txt",
+  "lisible": true,
+  "motif_illisible": null,
+  "client": {
+    "code_client": null,
+    "nom": "Pharmacie du Lavoir",
+    "code_postal": "21990",
+    "ville": "Bois-Clair"
+  },
+  "reference_commande": "CMD-88",
+  "date_email": "02/11/2026 10:15",
+  "lignes": [
+    {
+      "texte_source": "3 cartons de savon surgras",
+      "reference": null,
+      "ean": null,
+      "libelle": "savon surgras",
+      "quantite": "3",
+      "unite": "cartons"
+    },
+    {
+      "texte_source": "6 x Baume réparateur 40 ml - EAN 2055501001119",
+      "reference": null,
+      "ean": "2055501001119",
+      "libelle": "Baume réparateur 40 ml",
+      "quantite": "6",
+      "unite": null
+    }
+  ]
+}
