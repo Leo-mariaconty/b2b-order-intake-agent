@@ -49,7 +49,7 @@ def sans_les_pourquoi(attendu: dict) -> dict:
     return attendu
 
 
-def lire_csv(chemin, encodage="utf-8"):
+def lire_csv(chemin, encodage="utf-8-sig"):
     with open(chemin, newline="", encoding=encodage) as fichier:
         return list(csv.DictReader(fichier))
 

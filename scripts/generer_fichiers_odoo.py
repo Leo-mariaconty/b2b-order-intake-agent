@@ -24,7 +24,9 @@ def lire(chemin: Path) -> list[dict]:
 
 
 def ecrire(chemin: Path, titres: list[str], lignes: list[list]) -> None:
-    with open(chemin, "w", newline="", encoding="utf-8") as fichier:
+    # utf-8-sig = UTF-8 avec une marque en tête de fichier (BOM). Sans elle, le
+    # test dans Odoo a affiché « MarchÃ© » au lieu de « Marché ».
+    with open(chemin, "w", newline="", encoding="utf-8-sig") as fichier:
         tableau = csv.writer(fichier)
         tableau.writerow(titres)
         tableau.writerows(lignes)
@@ -37,11 +39,13 @@ def main():
     # Clients (modèle Odoo : res.partner)
     # id = identifiant externe. C'est lui que sorties/import_odoo.csv utilise
     # dans sa colonne partner_id/id pour désigner le client sans ambiguïté.
+    # Pas de colonne is_company : le test dans Odoo a montré qu'elle n'est pas
+    # importable dans la version testée (Odoo la reliait au champ « Société »).
     ecrire(
         DOSSIER_ODOO / "clients.csv",
-        ["id", "name", "is_company", "ref", "zip", "city", "country_id/id"],
+        ["id", "name", "ref", "zip", "city", "country_id/id"],
         [
-            [f"client_{c['code_client']}", c["nom"], "True", c["code_client"],
+            [f"client_{c['code_client']}", c["nom"], c["code_client"],
              c["code_postal"], c["ville"], "base.fr"]
             for c in lire(DATA / "clients.csv")
         ],

@@ -14,7 +14,7 @@ RACINE = Path(__file__).parent.parent
 
 
 def lire(chemin: Path) -> list[dict]:
-    with open(chemin, newline="", encoding="utf-8") as fichier:
+    with open(chemin, newline="", encoding="utf-8-sig") as fichier:
         return list(csv.DictReader(fichier))
 
 
@@ -50,3 +50,25 @@ def test_l_import_des_commandes_ne_cite_que_des_clients_et_produits_presents_dan
         if ligne["partner_id/id"]:
             assert ligne["partner_id/id"] in identifiants_clients
         assert ligne["order_line/product_id"] in references_produits
+
+
+# --- Deux défauts trouvés pendant le test dans une vraie base Odoo ----------
+
+BOM = b"\xef\xbb\xbf"  # la marque UTF-8 en tête de fichier
+
+
+def test_les_fichiers_importes_dans_odoo_commencent_par_la_marque_bom():
+    # Sans elle, Odoo a affiché « MarchÃ© » au lieu de « Marché ».
+    for chemin in [
+        RACINE / "odoo" / "clients.csv",
+        RACINE / "odoo" / "produits.csv",
+        RACINE / "sorties" / "import_odoo.csv",
+    ]:
+        assert chemin.read_bytes().startswith(BOM), chemin.name
+
+
+def test_le_fichier_clients_n_a_pas_de_colonne_is_company():
+    # Cette colonne n'est pas importable dans la version d'Odoo testée :
+    # Odoo la reliait au champ « Société » et l'import échouait.
+    titres = list(lire(RACINE / "odoo" / "clients.csv")[0])
+    assert titres == ["id", "name", "ref", "zip", "city", "country_id/id"]

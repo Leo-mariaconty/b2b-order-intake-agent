@@ -1,9 +1,9 @@
-id,name,is_company,ref,zip,city,country_id/id
-client_C1001,Pharmacie du Centre,True,C1001,31990,Valbrune-sur-Orve,base.fr
-client_C1002,Pharmacie du Centre,True,C1002,69990,Montclar-le-Lac,base.fr
-client_C1003,Pharmacie des Tilleuls,True,C1003,44990,Saint-Avel-des-Marais,base.fr
-client_C1004,Pharmacie de la Halle,True,C1004,33990,Castelroc,base.fr
-client_C1005,Pharmacie Saint-Roch,True,C1005,13990,Port-Lavande,base.fr
-client_C1006,Pharmacie du Marché,True,C1006,59990,Bourg-Vannier,base.fr
-client_C1007,Pharmacie des Remparts,True,C1007,67990,Hautefeuille,base.fr
-client_C1008,Pharmacie de la Fontaine,True,C1008,35990,Kerdouan,base.fr
+﻿id,name,ref,zip,city,country_id/id
+client_C1001,Pharmacie du Centre,C1001,31990,Valbrune-sur-Orve,base.fr
+client_C1002,Pharmacie du Centre,C1002,69990,Montclar-le-Lac,base.fr
+client_C1003,Pharmacie des Tilleuls,C1003,44990,Saint-Avel-des-Marais,base.fr
+client_C1004,Pharmacie de la Halle,C1004,33990,Castelroc,base.fr
+client_C1005,Pharmacie Saint-Roch,C1005,13990,Port-Lavande,base.fr
+client_C1006,Pharmacie du Marché,C1006,59990,Bourg-Vannier,base.fr
+client_C1007,Pharmacie des Remparts,C1007,67990,Hautefeuille,base.fr
+client_C1008,Pharmacie de la Fontaine,C1008,35990,Kerdouan,base.fr

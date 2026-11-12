@@ -31,6 +31,10 @@
 # Odoo attend des virgules par défaut (réglable dans son écran d'import).
 separateur: ","
 
+# Encodage du fichier. « utf-8-sig » = UTF-8 avec une marque en tête de fichier
+# (BOM). Sans elle, le test dans Odoo a abîmé les accents des fichiers clients.
+encodage: "utf-8-sig"
+
 # Format de date recommandé par la documentation Odoo.
 format_date: "%Y-%m-%d %H:%M:%S"
 

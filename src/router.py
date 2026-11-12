@@ -30,6 +30,7 @@ class ColonnesOdoo(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     separateur: str
+    encodage: str
     format_date: str
     colonnes_commande: dict[str, str]  # titre de colonne -> modèle de valeur
     colonnes_ligne: dict[str, str]
@@ -45,7 +46,7 @@ def ecrire_import_odoo(commandes_valides: list[CommandeControlee], chemin: Path,
     seulement sur la première ligne de chaque commande."""
     titres = list(colonnes.colonnes_commande) + list(colonnes.colonnes_ligne)
 
-    with open(chemin, "w", newline="", encoding="utf-8") as fichier:
+    with open(chemin, "w", newline="", encoding=colonnes.encodage) as fichier:
         tableau = csv.writer(fichier, delimiter=colonnes.separateur)
         tableau.writerow(titres)
 

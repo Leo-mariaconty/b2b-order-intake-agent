@@ -1,4 +1,4 @@
-partner_id/id,client_order_ref,date_order,order_line/product_id,order_line/product_uom_qty,order_line/price_unit
+﻿partner_id/id,client_order_ref,date_order,order_line/product_id,order_line/product_uom_qty,order_line/price_unit
 client_C1003,CDE-TIL-2311,2026-11-03 09:12:00,VB-102,12,4.20
 ,,,VB-104,6,5.90
 ,,,VB-108,24,2.10

@@ -1,4 +1,4 @@
-id,name,default_code,barcode,list_price
+﻿id,name,default_code,barcode,list_price
 produit_VB_101,Crème hydratante visage 50 ml,VB-101,2055501001016,9.80
 produit_VB_102,Crème mains réparatrice 75 ml,VB-102,2055501001023,4.20
 produit_VB_103,Lait corps nourrissant 200 ml,VB-103,2055501001030,8.50

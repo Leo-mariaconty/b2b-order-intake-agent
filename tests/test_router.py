@@ -5,7 +5,7 @@ from src.resultats import CommandeControlee, ExceptionControle, LigneControlee
 from src.router import ColonnesOdoo, ecrire_exceptions, ecrire_import_odoo, router
 from tests.fabrique import commande_avec_une_ligne_en_exception, commande_valide
 
-def lire_csv(chemin, encodage="utf-8"):
+def lire_csv(chemin, encodage="utf-8-sig"):
     with open(chemin, newline="", encoding=encodage) as fichier:
         return list(csv.reader(fichier))
 
@@ -58,6 +58,14 @@ def test_csv_odoo_champs_de_commande_sur_la_premiere_ligne_seulement(tmp_path, c
     assert len(lignes) == 5
 
 
+def test_csv_odoo_commence_par_la_marque_bom(tmp_path, colonnes_odoo):
+    # Trouvé pendant le test dans une vraie base : sans cette marque en tête de
+    # fichier, Odoo affichait « MarchÃ© » au lieu de « Marché ».
+    chemin = tmp_path / "import_odoo.csv"
+    ecrire_import_odoo([commande_valide()], chemin, colonnes_odoo)
+    assert chemin.read_bytes().startswith(b"\xef\xbb\xbf")
+
+
 def test_csv_odoo_sans_commande_contient_seulement_les_titres(tmp_path, colonnes_odoo):
     chemin = tmp_path / "import_odoo.csv"
     ecrire_import_odoo([], chemin, colonnes_odoo)
@@ -67,6 +75,7 @@ def test_csv_odoo_sans_commande_contient_seulement_les_titres(tmp_path, colonnes
 def test_csv_odoo_les_colonnes_se_changent_dans_le_fichier_de_reglage(tmp_path):
     colonnes = ColonnesOdoo(
         separateur=";",
+        encodage="utf-8",
         format_date="%d/%m/%Y",
         colonnes_commande={"Client": "{nom_client}", "Date": "{date_commande}"},
         colonnes_ligne={"Code-barres": "{ean}", "Qté": "{quantite}"},
@@ -80,7 +89,7 @@ def test_csv_odoo_les_colonnes_se_changent_dans_le_fichier_de_reglage(tmp_path):
 
 def test_csv_odoo_un_mot_inconnu_dans_le_reglage_donne_une_erreur_claire(tmp_path):
     colonnes = ColonnesOdoo(
-        separateur=",", format_date="%Y-%m-%d",
+        separateur=",", encodage="utf-8", format_date="%Y-%m-%d",
         colonnes_commande={"Client": "{nom_du_client}"}, colonnes_ligne={"Qté": "{quantite}"},
     )
     with pytest.raises(ValueError, match="nom_du_client"):
