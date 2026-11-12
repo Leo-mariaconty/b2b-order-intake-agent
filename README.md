@@ -168,25 +168,31 @@ leurs lignes, vérifié dans la documentation Odoo. Les colonnes se règlent dan
 [`odoo_colonnes.yaml`](odoo_colonnes.yaml). La marche à suivre pour le tester
 est dans [`docs/test_odoo.md`](docs/test_odoo.md).
 
-**Testé dans une vraie base Odoo.** Le 12 novembre 2026, j'ai importé les
-clients, les produits puis les commandes dans une base Odoo Online (interface
-en français, application Ventes seule).
+**Testé dans une vraie base Odoo.** Le 12 novembre 2026, dans une base Odoo
+Online en version 20.0 (interface en français, application Ventes seule), en
+deux passages.
 
-Ce qui a marché du premier coup :
-- `sorties/import_odoo.csv`, tel quel : les 6 colonnes reconnues sans
-  intervention, 2 devis créés avec les bons clients, lignes, dates et montants
-  (136,20 et 279,00 hors taxes) ;
-- les 12 produits, avec leurs références internes et leurs prix.
-
-Deux défauts trouvés, tous deux sur le fichier des clients :
+Premier passage :
+- le fichier des commandes, tel quel : 6 colonnes reconnues sans intervention,
+  2 devis créés à l'état brouillon, avec les bons clients, lignes, dates et
+  montants (136,20 et 279,00 hors taxes) ;
+- les 12 produits, importés avec la marque BOM : références internes et prix
+  corrects ;
+- le fichier des clients : deux défauts.
 
 | Défaut constaté | Correction |
 |---|---|
-| La colonne `is_company` n'est pas importable dans cette version. Odoo l'a reliée au champ « Société » et le test a échoué | Colonne retirée |
+| La colonne `is_company` n'est pas importable en version 20.0. Odoo l'a reliée au champ « Société » et le test a échoué | Colonne retirée |
 | Sans marque BOM en tête de fichier, « Marché » est arrivé en « MarchÃ© » | Les trois fichiers d'import sont écrits en UTF-8 avec BOM |
 
-Chaque défaut a maintenant un test qui l'empêche de revenir. Une précision : le
-fichier des commandes a été importé avant l'ajout de la marque BOM, pas après.
+Second passage, avec les fichiers corrigés du dépôt :
+- clients : 6 colonnes reconnues, 8 fiches mises à jour sans doublon, accents
+  corrects ;
+- produits : 5 colonnes reconnues, 12 fiches mises à jour sans doublon ;
+- commandes : 6 colonnes reconnues, test à blanc réussi (« Tout semble
+  correct »). Je ne les ai pas réimportées, pour ne pas créer de devis en double.
+
+Chaque défaut a maintenant un test qui l'empêche de revenir.
 
 ![Le devis de la Pharmacie des Tilleuls créé par l'import, dans Odoo](docs/images/test_odoo.png)
 
@@ -242,6 +248,9 @@ Ce prototype ne mesure rien de réel. En conditions réelles, je suivrais :
   les commandes passées par un grossiste.
 - **L'import Odoo se fait par fichier, à la main.** Il suppose que les clients
   et les produits existent déjà dans Odoo avec les mêmes identifiants.
+- **Dans Odoo, les pharmacies sont créées comme contacts individuels**, pas
+  comme sociétés, depuis le retrait de la colonne `is_company`. C'est sans effet
+  sur les commandes.
 
 ## 8. En une ligne
 

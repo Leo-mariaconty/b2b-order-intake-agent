@@ -68,7 +68,7 @@ def test_les_fichiers_importes_dans_odoo_commencent_par_la_marque_bom():
 
 
 def test_le_fichier_clients_n_a_pas_de_colonne_is_company():
-    # Cette colonne n'est pas importable dans la version d'Odoo testée :
+    # Cette colonne n'est pas importable dans Odoo 20.0, la version testée :
     # Odoo la reliait au champ « Société » et l'import échouait.
     titres = list(lire(RACINE / "odoo" / "clients.csv")[0])
     assert titres == ["id", "name", "ref", "zip", "city", "country_id/id"]

@@ -39,8 +39,9 @@ def main():
     # Clients (modèle Odoo : res.partner)
     # id = identifiant externe. C'est lui que sorties/import_odoo.csv utilise
     # dans sa colonne partner_id/id pour désigner le client sans ambiguïté.
-    # Pas de colonne is_company : le test dans Odoo a montré qu'elle n'est pas
-    # importable dans la version testée (Odoo la reliait au champ « Société »).
+    # Pas de colonne is_company : le test dans Odoo 20.0 a montré qu'elle n'y
+    # est pas importable (Odoo la reliait au champ « Société »). Conséquence :
+    # les pharmacies sont créées comme contacts individuels, pas comme sociétés.
     ecrire(
         DOSSIER_ODOO / "clients.csv",
         ["id", "name", "ref", "zip", "city", "country_id/id"],

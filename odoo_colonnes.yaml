@@ -9,8 +9,9 @@
 #
 # Titres des colonnes : ce sont les noms techniques des champs Odoo. Ils sont
 # reconnus quelle que soit la langue de l'interface (vérifié dans le code source
-# d'Odoo 19, module base_import). Les titres affichés à l'écran, eux, changent
-# avec la langue. Équivalences :
+# d'Odoo 19, module base_import, puis testé le 12/11/2026 dans une base Odoo
+# 20.0 en français : les 6 colonnes ont été reconnues sans intervention).
+# Les titres affichés à l'écran, eux, changent avec la langue. Équivalences :
 #
 #   nom technique                 écran en français                  écran en anglais
 #   partner_id/id                 Client / ID externe                Customer / External ID

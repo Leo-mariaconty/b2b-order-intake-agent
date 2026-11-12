@@ -4,21 +4,32 @@ Objectif : vérifier que `sorties/import_odoo.csv` crée bien deux devis dans un
 vraie base Odoo, sans ressaisie.
 
 **État de cette procédure.** Elle a été déroulée le 12 novembre 2026 dans une
-base Odoo Online, interface en français, avec l'application Ventes seule.
+base Odoo Online en version 20.0, interface en français, avec l'application
+Ventes seule. Deux passages ont eu lieu.
 
-- Commandes : les 6 colonnes ont été reconnues sans intervention et les 2 devis
-  ont été créés avec les bons clients, lignes, dates et montants.
-- Produits : les 12 ont été importés, références internes et prix corrects.
-- Clients : le test a révélé deux défauts, corrigés depuis dans les fichiers du
-  dépôt. La colonne `is_company` n'était pas importable (Odoo la reliait au
-  champ « Société »), elle a été retirée. Sans marque BOM en tête de fichier,
-  les accents étaient abîmés : les trois fichiers sont maintenant écrits en
-  UTF-8 avec BOM.
+Premier passage :
+- commandes, fichier sans marque BOM : 6 colonnes reconnues sans intervention,
+  2 devis créés à l'état brouillon (S00003 Pharmacie des Tilleuls, 136,20 hors
+  taxes ; S00004 Pharmacie des Remparts, 279,00 hors taxes) ;
+- clients : deux défauts. La colonne `is_company` n'était pas importable (Odoo
+  la reliait au champ « Société »), et sans marque BOM en tête de fichier les
+  accents étaient abîmés ;
+- produits, importés avec la marque BOM : 12 fiches, références internes et
+  prix corrects.
 
-Une précision : le fichier des commandes a été importé avant l'ajout de la
-marque BOM. Les fichiers clients et produits l'ont été avec.
+Les deux défauts ont été corrigés dans le dépôt : colonne `is_company` retirée,
+et les trois fichiers écrits en UTF-8 avec BOM.
 
-Les intitulés français peuvent varier légèrement selon la version d'Odoo.
+Second passage, avec les fichiers corrigés du dépôt :
+- clients : 6 colonnes reconnues, test réussi, 8 fiches mises à jour sans
+  doublon, « Pharmacie du Marché » correct ;
+- produits : 5 colonnes reconnues, test réussi, 12 fiches mises à jour sans
+  doublon, accents et prix corrects ;
+- commandes : 6 colonnes reconnues, test à blanc réussi (« Tout semble
+  correct »). Elles n'ont pas été réimportées, pour ne pas créer de devis en
+  double.
+
+Dans une autre version d'Odoo, les intitulés français peuvent différer.
 
 ## Avant de commencer
 
@@ -137,8 +148,11 @@ Ce que vous devez voir après l'import :
 | [VB-108] Stick lèvres nourrissant 4 g | 24 | 2,10 |
 
 Le montant hors taxes est le chiffre à comparer. Le montant toutes taxes dépend
-des taxes réglées dans votre base. Si l'heure affichée est décalée d'une heure
-ou deux, c'est le fuseau horaire de votre compte Odoo, pas une erreur du fichier.
+des taxes réglées dans votre base (pendant le test : TVA 20 %, soit 334,80
+toutes taxes pour le second devis).
+
+L'heure du fichier est lue comme une heure locale. Constaté pendant le test :
+09:12 dans le fichier, 09:12 affiché à Paris, 08:12 UTC enregistré en base.
 
 La capture du test du 12 novembre 2026 : [`images/test_odoo.png`](images/test_odoo.png).
 
@@ -198,6 +212,12 @@ Dans **Formatage**, vérifiez **Format de date**. Les dates du fichier sont
 N'importez pas. Notez le message exact, la ligne concernée et faites une
 capture : le réglage se fait ensuite dans `odoo_colonnes.yaml`, sans toucher au
 code Python.
+
+## Ce que ce test a montré d'autre
+
+Les 8 pharmacies sont créées comme contacts individuels, pas comme sociétés,
+puisque la colonne `is_company` a été retirée. C'est sans effet sur les
+commandes.
 
 ## Ce que ce test ne vérifie pas
 
