@@ -1,0 +1,7 @@
+# Le pipeline (src/)
+pydantic>=2.6      # vérifie la forme des JSON d'extraction
+pyyaml>=6.0        # lit regles.yaml
+
+# Outils de développement
+pytest>=8.0        # lance les tests
+reportlab>=4.0     # fabrique le bon de commande PDF de démonstration

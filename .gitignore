@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+# Secrets et configuration locale : jamais dans le dépôt
+.env
+.env.*
+.claude/settings.local.json
+
+# Fichiers créés par le système ou l'éditeur
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
