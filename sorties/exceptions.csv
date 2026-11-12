@@ -1,0 +1,13 @@
+﻿email_source,ligne,texte_de_l_email,produit_reconnu,quantite_lue,statut,controle,raison,suggestion
+02_centre_texte_flou.txt,commande entière,,,,à traiter,client,"2 pharmacies s'appellent « Pharmacie du Centre » (Valbrune-sur-Orve, Montclar-le-Lac) et l'email ne donne ni code client ni code postal.",C1001 Pharmacie du Centre (31990 Valbrune-sur-Orve) ; C1002 Pharmacie du Centre (69990 Montclar-le-Lac)
+02_centre_texte_flou.txt,1,2 cartons du déo,,2,à traiter,reference,"L'email ne donne aucun code produit (ni code-barres, ni référence).",VB-105 Déodorant bille douceur 50 ml ; VB-106 Déodorant spray fraîcheur 100 ml
+02_centre_texte_flou.txt,1,2 cartons du déo,,2,à traiter,quantite,La quantité est donnée en « cartons » : le nombre d'unités n'est pas écrit dans l'email.,
+02_centre_texte_flou.txt,2,"la crème mains, 12 comme d'habitude",,12,à traiter,reference,"L'email ne donne aucun code produit (ni code-barres, ni référence).",VB-102 Crème mains réparatrice 75 ml
+02_centre_texte_flou.txt,3,et 6 gels douche,,6,à traiter,reference,"L'email ne donne aucun code produit (ni code-barres, ni référence).",VB-104 Gel douche surgras 400 ml
+03_halle_tableau_html.html,1,VB-101 | Crème hydratante visage 50 ml | 6,VB-101,6,en attente,,Ligne correcte. Elle attend que le reste de la commande soit traité.,
+03_halle_tableau_html.html,2,VB-103 | Lait corps nourrissant 200 ml | 10,VB-103,10,à traiter,quantite,La quantité 10 n'est pas un multiple du colisage (6).,6 ou 12
+03_halle_tableau_html.html,3,VB-110 | Eau micellaire peaux sensibles 400 ml | 12,VB-110,12,en attente,,Ligne correcte. Elle attend que le reste de la commande soit traité.,
+04_saint_roch_tableau_erreurs.txt,1,2055501001078 | Shampooing doux usage fréquent 250 ml | 12,VB-107,12,en attente,,Ligne correcte. Elle attend que le reste de la commande soit traité.,
+04_saint_roch_tableau_erreurs.txt,2,2055501001192 | Crème solaire SPF50 visage 50 ml | 6,,6,à traiter,reference,Le code-barres 2055501001192 n'est pas un code valide : il contient probablement une faute de frappe.,VB-109 Crème solaire SPF50 visage 50 ml
+04_saint_roch_tableau_erreurs.txt,3,2055501001115 | Baume réparateur 40 ml | 120,VB-111,120,à traiter,quantite,La quantité 120 dépasse le maximum accepté par ligne (100) : erreur de saisie possible.,
+04_saint_roch_tableau_erreurs.txt,4,2055501001122 | Savon surgras 100 g | 24,VB-112,24,en attente,,Ligne correcte. Elle attend que le reste de la commande soit traité.,

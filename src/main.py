@@ -1,20 +1,25 @@
-"""Point d'entrée : enchaîne les étapes du pipeline.
+"""Point d'entrée : enchaîne les quatre étapes du pipeline.
 
 À lancer depuis la racine du dépôt :
 
     python -m src.main
 
 Le script part des emails de data/inbox/ et des JSON de data/extractions/.
-Chaque email doit finir quelque part : aucun n'est ignoré en silence.
+Chaque email finit soit dans l'import Odoo, soit dans les exceptions : aucun
+n'est ignoré en silence.
 """
 
 from pathlib import Path
 
+from src.controler import controler_commande
+from src.rapport import ecrire_rapport
+from src.referentiel import charger_catalogue, charger_clients
+from src.regles import Regles, charger_regles
+from src.resultats import CommandeControlee, ExceptionControle
+from src.router import ColonnesOdoo, charger_colonnes_odoo, ecrire_exceptions, ecrire_import_odoo, router
 from src.valider import valider_extraction
 
 RACINE = Path(__file__).parent.parent
-DOSSIER_INBOX = RACINE / "data" / "inbox"
-DOSSIER_EXTRACTIONS = RACINE / "data" / "extractions"
 
 EXTENSIONS_EMAIL = {".txt", ".html"}
 
@@ -32,16 +37,62 @@ def lister_emails(dossier_inbox: Path) -> list[str]:
     )
 
 
-def main():
-    emails = lister_emails(DOSSIER_INBOX)
-    print(f"{len(emails)} email(s) dans {DOSSIER_INBOX.relative_to(RACINE)}/")
+def traiter(
+    dossier_inbox: Path,
+    dossier_extractions: Path,
+    dossier_sorties: Path,
+    catalogue: list[dict],
+    clients: list[dict],
+    regles: Regles,
+    colonnes_odoo: ColonnesOdoo,
+) -> list[CommandeControlee]:
+    """Fait tout le travail pour un dossier d'emails et renvoie les commandes contrôlées."""
+    emails = lister_emails(dossier_inbox)
+    commandes = []
 
     for nom_email in emails:
-        extraction, raison = valider_extraction(nom_email, DOSSIER_EXTRACTIONS)
+        # Étape 1 : valider le JSON d'extraction
+        extraction, raison = valider_extraction(nom_email, dossier_extractions)
         if extraction is None:
-            print(f"  [extraction illisible] {nom_email} : {raison}")
+            exception = ExceptionControle("extraction", f"Extraction illisible. {raison}")
+            commandes.append(CommandeControlee(nom_email, exceptions_commande=[exception]))
+            continue
+        # Étape 2 : contrôler
+        commandes.append(controler_commande(extraction, catalogue, clients, regles))
+
+    # Étape 3 : router et écrire les deux fichiers
+    valides, en_exception = router(commandes)
+    if len(valides) + len(en_exception) != len(emails):
+        raise RuntimeError("Un email n'a été rangé nulle part : le script s'arrête.")
+
+    dossier_sorties.mkdir(exist_ok=True)
+    ecrire_import_odoo(valides, dossier_sorties / "import_odoo.csv", colonnes_odoo)
+    ecrire_exceptions(en_exception, dossier_sorties / "exceptions.csv", catalogue, clients)
+
+    # Étape 4 : rapport
+    ecrire_rapport(commandes, dossier_sorties / "rapport.md")
+    return commandes
+
+
+def main():
+    commandes = traiter(
+        dossier_inbox=RACINE / "data" / "inbox",
+        dossier_extractions=RACINE / "data" / "extractions",
+        dossier_sorties=RACINE / "sorties",
+        catalogue=charger_catalogue(RACINE / "data" / "catalogue.csv"),
+        clients=charger_clients(RACINE / "data" / "clients.csv"),
+        regles=charger_regles(RACINE / "regles.yaml"),
+        colonnes_odoo=charger_colonnes_odoo(RACINE / "odoo_colonnes.yaml"),
+    )
+
+    print(f"{len(commandes)} email(s) traité(s)")
+    for commande in commandes:
+        nombre = len(commande.exceptions_commande) + sum(len(l.exceptions) for l in commande.lignes)
+        if commande.est_valide():
+            print(f"  [import Odoo] {commande.email_source} : {len(commande.lignes)} ligne(s)")
         else:
-            print(f"  [extraction valide]    {nom_email} : {len(extraction.lignes)} ligne(s)")
+            print(f"  [exceptions]  {commande.email_source} : {nombre} exception(s)")
+    print("Fichiers écrits dans sorties/ : import_odoo.csv, exceptions.csv, rapport.md")
 
 
 if __name__ == "__main__":
