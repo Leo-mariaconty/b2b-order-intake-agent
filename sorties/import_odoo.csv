@@ -1,8 +1,8 @@
-Customer/External ID,Customer Reference,Order Date,Order Lines/Product Template,Order Lines/Quantity,Order Lines/Unit Price
-client_C1003,CDE-TIL-2311,2026-11-03 09:12:00,[VB-102] Crème mains réparatrice 75 ml,12,4.20
-,,,[VB-104] Gel douche surgras 400 ml,6,5.90
-,,,[VB-108] Stick lèvres nourrissant 4 g,24,2.10
-client_C1007,BC-2026-0457,2026-11-09 08:40:00,[VB-105] Déodorant bille douceur 50 ml,12,4.60
-,,,[VB-107] Shampooing doux usage fréquent 250 ml,6,6.30
-,,,[VB-111] Baume réparateur 40 ml,12,6.80
-,,,[VB-112] Savon surgras 100 g,36,2.90
+partner_id/id,client_order_ref,date_order,order_line/product_id,order_line/product_uom_qty,order_line/price_unit
+client_C1003,CDE-TIL-2311,2026-11-03 09:12:00,VB-102,12,4.20
+,,,VB-104,6,5.90
+,,,VB-108,24,2.10
+client_C1007,BC-2026-0457,2026-11-09 08:40:00,VB-105,12,4.60
+,,,VB-107,6,6.30
+,,,VB-111,12,6.80
+,,,VB-112,36,2.90

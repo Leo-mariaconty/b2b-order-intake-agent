@@ -66,7 +66,7 @@ def test_les_5_emails_donnent_le_resultat_attendu(tmp_path, catalogue, clients, 
     # Les fichiers écrits disent la même chose que les commandes contrôlées
     import_odoo = lire_csv(tmp_path / "import_odoo.csv")
     assert len(import_odoo) == 7  # 3 lignes (email 1) + 4 lignes (email 5)
-    assert [l["Customer/External ID"] for l in import_odoo if l["Customer/External ID"]] == [
+    assert [l["partner_id/id"] for l in import_odoo if l["partner_id/id"]] == [
         "client_C1003", "client_C1007"]
 
     exceptions = lire_csv(tmp_path / "exceptions.csv", "utf-8-sig")

@@ -48,12 +48,11 @@ def test_csv_odoo_champs_de_commande_sur_la_premiere_ligne_seulement(tmp_path, c
     lignes = lire_csv(chemin)
 
     assert lignes[0] == [
-        "Customer/External ID", "Customer Reference", "Order Date",
-        "Order Lines/Product Template", "Order Lines/Quantity", "Order Lines/Unit Price",
+        "partner_id/id", "client_order_ref", "date_order",
+        "order_line/product_id", "order_line/product_uom_qty", "order_line/price_unit",
     ]
-    assert lignes[1] == ["client_C1003", "CDE-1", "2026-11-03 09:12:00",
-                         "[VB-102] Crème mains réparatrice 75 ml", "12", "4.20"]
-    assert lignes[2] == ["", "", "", "[VB-104] Gel douche surgras 400 ml", "6", "5.90"]
+    assert lignes[1] == ["client_C1003", "CDE-1", "2026-11-03 09:12:00", "VB-102", "12", "4.20"]
+    assert lignes[2] == ["", "", "", "VB-104", "6", "5.90"]
     # la deuxième commande recommence avec ses champs de commande remplis
     assert lignes[3][0] == "client_C1003"
     assert len(lignes) == 5

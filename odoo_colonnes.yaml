@@ -1,17 +1,27 @@
 # ---------------------------------------------------------------------------
 # Colonnes du fichier d'import Odoo (sorties/import_odoo.csv)
 #
-# Format vérifié le 12/11/2026 dans la documentation Odoo 18, page
-# « Export and import data », section « Import one2many relationships » :
+# Forme du fichier, vérifiée le 12/11/2026 dans la documentation Odoo
+# (page « Export and import data », section « Import one2many relationships ») :
 #   - une ligne du CSV par ligne de commande ;
 #   - les champs de la commande (client, date...) sont remplis sur la première
 #     ligne de chaque commande, et laissés vides sur les lignes suivantes.
-# Les titres ci-dessous sont ceux du fichier d'exemple officiel
-# (o2m-quotations-order-lines.csv), sauf « Customer Reference » et
-# « Customer/External ID », à confirmer lors du test dans une vraie base.
 #
-# Pour ajuster : à gauche le titre de la colonne tel qu'Odoo l'attend, à droite
-# ce qu'on y met. Les mots entre accolades sont remplacés par le script.
+# Titres des colonnes : ce sont les noms techniques des champs Odoo. Ils sont
+# reconnus quelle que soit la langue de l'interface (vérifié dans le code source
+# d'Odoo 19, module base_import). Les titres affichés à l'écran, eux, changent
+# avec la langue. Équivalences :
+#
+#   nom technique                 écran en français                  écran en anglais
+#   partner_id/id                 Client / ID externe                Customer / External ID
+#   client_order_ref              Référence client                   Customer Reference
+#   date_order                    Date de la commande                Order Date
+#   order_line/product_id         Lignes de commande / Produit       Order Lines / Product
+#   order_line/product_uom_qty    Lignes de commande / Quantité      Order Lines / Quantity
+#   order_line/price_unit         Lignes de commande / Prix unitaire Order Lines / Unit Price
+#
+# Pour ajuster : à gauche le titre de la colonne, à droite ce qu'on y met.
+# Les mots entre accolades sont remplacés par le script.
 # Mots disponibles pour la commande : {code_client} {nom_client}
 #   {reference_commande} {date_commande} {email_source}
 # Mots disponibles pour la ligne : {reference} {ean} {libelle} {quantite}
@@ -28,16 +38,16 @@ format_date: "%Y-%m-%d %H:%M:%S"
 colonnes_commande:
   # Deux pharmacies portent le même nom. La documentation Odoo demande alors
   # d'identifier le client par son identifiant externe plutôt que par son nom.
-  # Hypothèse : les clients ont été importés avec l'identifiant « client_CODE ».
-  # Pour identifier par le nom à la place :   "Customer": "{nom_client}"
-  "Customer/External ID": "client_{code_client}"
-  "Customer Reference": "{reference_commande}"
-  "Order Date": "{date_commande}"
+  # Les clients de odoo/clients.csv portent l'identifiant « client_CODE ».
+  # Pour identifier par le nom à la place :   "partner_id": "{nom_client}"
+  "partner_id/id": "client_{code_client}"
+  "client_order_ref": "{reference_commande}"
+  "date_order": "{date_commande}"
 
 # Remplies sur chaque ligne.
 colonnes_ligne:
-  # Même présentation que l'exemple officiel : [référence interne] nom.
-  # Odoo 17 et antérieurs : le titre est « Order Lines/Product ».
-  "Order Lines/Product Template": "[{reference}] {libelle}"
-  "Order Lines/Quantity": "{quantite}"
-  "Order Lines/Unit Price": "{prix_unitaire}"
+  # Sans « /id », Odoo cherche le produit par sa référence interne exacte,
+  # puis par son code-barres. Pour chercher par code-barres : "{ean}"
+  "order_line/product_id": "{reference}"
+  "order_line/product_uom_qty": "{quantite}"
+  "order_line/price_unit": "{prix_unitaire}"
