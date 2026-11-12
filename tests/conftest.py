@@ -30,3 +30,10 @@ def regles():
         unites_acceptees=["unité", "unités", "pièce", "pièces"],
         seuil_ressemblance=0.8,
     )
+
+
+@pytest.fixture
+def colonnes_odoo():
+    from src.router import charger_colonnes_odoo
+
+    return charger_colonnes_odoo(RACINE / "odoo_colonnes.yaml")

@@ -6,7 +6,12 @@ donc la tester seule, avec un cas qui passe et un cas qui échoue.
 
 Chaque contrôle renvoie deux valeurs : ce qu'il a trouvé, et une exception.
 Quand tout va bien l'exception vaut None.
+
+Un quatrième contrôle, plus technique, vérifie que la date de l'email est
+lisible : Odoo refuse une commande sans date.
 """
+
+from datetime import datetime
 
 from src.ean import ean13_est_valide
 from src.regles import Regles
@@ -166,22 +171,40 @@ def controler_quantite(
     return quantite, None
 
 
+# --- Contrôle technique : la date de l'email --------------------------------
+
+FORMATS_DE_DATE = ["%d/%m/%Y %H:%M", "%d/%m/%Y"]
+
+
+def controler_date(date_email: str | None) -> tuple[datetime | None, ExceptionControle | None]:
+    """La date doit être écrite comme 03/11/2026 09:12 ou 03/11/2026."""
+    for format_date in FORMATS_DE_DATE:
+        try:
+            return datetime.strptime((date_email or "").strip(), format_date), None
+        except ValueError:
+            continue
+    ecrit = f"« {date_email} »" if date_email else "absente"
+    raison = f"La date de l'email ({ecrit}) n'a pas pu être comprise."
+    return None, ExceptionControle("date", raison)
+
+
 # --- Assemblage : une commande entière -------------------------------------
 
 
 def controler_commande(
     extraction: Extraction, catalogue: list[dict], clients: list[dict], regles: Regles
 ) -> CommandeControlee:
-    """Applique les trois contrôles à une extraction et range les résultats."""
+    """Applique les contrôles à une extraction et range les résultats."""
     commande = CommandeControlee(
         email_source=extraction.email_source,
         reference_commande=extraction.reference_commande,
-        date_email=extraction.date_email,
     )
 
-    commande.client, exception = controler_client(extraction.client, clients)
-    if exception:
-        commande.exceptions_commande.append(exception)
+    commande.client, exception_client = controler_client(extraction.client, clients)
+    commande.date_commande, exception_date = controler_date(extraction.date_email)
+    for exception in (exception_client, exception_date):
+        if exception:
+            commande.exceptions_commande.append(exception)
 
     for numero, ligne in enumerate(extraction.lignes, start=1):
         produit, exception_reference = controler_reference(ligne, catalogue, regles)

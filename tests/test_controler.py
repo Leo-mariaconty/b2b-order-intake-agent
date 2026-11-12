@@ -1,8 +1,11 @@
 """Chaque contrôle est testé seul : au moins un cas qui passe, un cas qui échoue."""
 
+from datetime import datetime
+
 from src.controler import (
     controler_client,
     controler_commande,
+    controler_date,
     controler_quantite,
     controler_reference,
 )
@@ -212,6 +215,21 @@ def test_sans_produit_reconnu_le_colisage_n_est_pas_verifie(regles):
     assert exception is None
 
 
+# --- Contrôle technique : date ---------------------------------------------
+
+
+def test_date_avec_ou_sans_heure():
+    assert controler_date("03/11/2026 09:12") == (datetime(2026, 11, 3, 9, 12), None)
+    assert controler_date("03/11/2026") == (datetime(2026, 11, 3), None)
+
+
+def test_date_incomprise_ou_absente():
+    for texte in ["mardi dernier", "2026-13-45", "", None]:
+        date, exception = controler_date(texte)
+        assert date is None, texte
+        assert exception.controle == "date", texte
+
+
 # --- Assemblage -------------------------------------------------------------
 
 
@@ -228,6 +246,7 @@ def test_commande_entierement_valide(catalogue, clients, regles):
     commande = controler_commande(extraction, catalogue, clients, regles)
     assert commande.est_valide()
     assert commande.client["code_client"] == "C1003"
+    assert commande.date_commande == datetime(2026, 11, 3, 9, 12)
     assert commande.lignes[0].numero == 1
 
 
@@ -238,7 +257,7 @@ def test_une_ligne_peut_cumuler_deux_exceptions(catalogue, clients, regles):
         motif_illisible=None,
         client=client(code_client="C1003"),
         reference_commande=None,
-        date_email=None,
+        date_email="03/11/2026",
         lignes=[ligne(libelle="déo", quantite="2", unite="cartons")],
     )
     commande = controler_commande(extraction, catalogue, clients, regles)

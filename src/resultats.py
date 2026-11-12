@@ -4,6 +4,7 @@ Ce sont de simples fiches (dataclasses) que les étapes suivantes relisent.
 """
 
 from dataclasses import dataclass, field
+from datetime import datetime
 
 
 @dataclass
@@ -27,7 +28,7 @@ class CommandeControlee:
     email_source: str
     client: dict | None = None  # le client du fichier clients, ou None
     reference_commande: str | None = None
-    date_email: str | None = None
+    date_commande: datetime | None = None  # la date de l'email, une fois comprise
     exceptions_commande: list[ExceptionControle] = field(default_factory=list)
     lignes: list[LigneControlee] = field(default_factory=list)
 
