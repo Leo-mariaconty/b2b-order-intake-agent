@@ -147,17 +147,17 @@ Ce que j'ai volontairement laissé de côté :
 
 ```mermaid
 flowchart TD
-    A[Emails de commande] --> B[Skill Claude Code : recopie chaque email dans un JSON]
-    B --> C[Un JSON par email]
-    C --> D[1. Valider la forme du JSON]
-    D --> E[2. Contrôler : client, référence, quantité]
-    R[regles.yaml, tenu par l'ADV] --> E
-    K[Catalogue et fichier clients] --> E
-    E --> F{3. Router : tout est valide ?}
-    F -- oui --> G[import_odoo.csv]
-    F -- non --> H[exceptions.csv : raison et suggestion]
-    D -- JSON absent ou invalide --> H
-    G --> I[4. Rapport]
+    A["Emails de commande"] --> B["Skill Claude Code : recopie chaque email dans un JSON"]
+    B --> C["Un JSON par email"]
+    C --> D["Étape 1 : valider la forme du JSON"]
+    D --> E["Étape 2 : contrôler client, référence, quantité"]
+    R["regles.yaml, tenu par l'ADV"] --> E
+    K["Catalogue et fichier clients"] --> E
+    E --> F{"Étape 3 : tout est valide ?"}
+    F -- oui --> G["import_odoo.csv"]
+    F -- non --> H["exceptions.csv : raison et suggestion"]
+    D -- "JSON absent ou invalide" --> H
+    G --> I["Étape 4 : rapport"]
     H --> I
 ```
 
@@ -197,18 +197,18 @@ d'une vraie exécution du skill dans Claude Code, le 12 novembre 2026. Ils n'ont
 pas été écrits à la main. Ils sont commités pour que les tests, et un lecteur
 sans Claude Code, puissent tout relancer.
 
-> **À COMPLÉTER : comparaison de deux exécutions du skill.** Le skill a été
-> lancé une seconde fois, dans une session séparée qui ne connaissait pas le
-> projet. Résultat de la comparaison des deux séries de JSON : à venir.
+> **À COMPLÉTER : comparaison de deux exécutions du skill.** Le skill doit être
+> relancé dans une session séparée, qui ne connaît pas le projet, puis les deux
+> séries de JSON comparées. Résultat à venir.
 
 **Format Odoo.** Le fichier suit le format d'import natif des commandes avec
 leurs lignes, vérifié dans la documentation Odoo. Les colonnes se règlent dans
 [`odoo_colonnes.yaml`](odoo_colonnes.yaml). La marche à suivre pour le tester
 est dans [`docs/test_odoo.md`](docs/test_odoo.md).
 
-> **À COMPLÉTER : résultat du test dans une base Odoo.** Import des clients, des
-> produits puis des commandes dans une base Odoo Online : résultat et capture
-> d'écran à venir.
+> **À COMPLÉTER : résultat du test dans une base Odoo.** L'import des clients,
+> des produits puis des commandes dans une base Odoo Online reste à faire.
+> Résultat et capture d'écran à venir.
 
 **Où regarder**
 
