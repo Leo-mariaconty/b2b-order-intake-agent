@@ -1,0 +1,22 @@
+{
+  "email_source": "03_halle_tableau_html.html",
+  "destination": "exceptions",
+  "client": "C1004",
+  "exceptions_commande": [],
+  "lignes": [
+    {"ligne": 1, "produit": "VB-101", "quantite": 6, "exceptions": []},
+    {
+      "ligne": 2,
+      "produit": "VB-103",
+      "quantite": 10,
+      "exceptions": [
+        {
+          "controle": "quantite",
+          "pourquoi": "10 n'est pas un multiple du colisage (6).",
+          "suggestion": []
+        }
+      ]
+    },
+    {"ligne": 3, "produit": "VB-110", "quantite": 12, "exceptions": []}
+  ]
+}

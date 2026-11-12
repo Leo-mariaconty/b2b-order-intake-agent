@@ -1,0 +1,20 @@
+De : pharmacie.saint-roch@mail.example
+À : adv@velbrume.example
+Date : 06/11/2026 15:26
+Objet : Commande Velbrume
+
+Bonjour,
+
+Ci-dessous notre commande du mois.
+
+EAN            | Désignation                           | Qté
+---------------|---------------------------------------|-----
+2055501001078  | Shampooing doux usage fréquent 250 ml | 12
+2055501001192  | Crème solaire SPF50 visage 50 ml      | 6
+2055501001115  | Baume réparateur 40 ml                | 120
+2055501001122  | Savon surgras 100 g                   | 24
+
+Merci,
+Pharmacie Saint-Roch
+4 quai des Lavandes
+13990 Port-Lavande

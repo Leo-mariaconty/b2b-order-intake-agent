@@ -1,0 +1,11 @@
+{
+  "email_source": "01_tilleuls_texte_propre.txt",
+  "destination": "import_odoo",
+  "client": "C1003",
+  "exceptions_commande": [],
+  "lignes": [
+    {"ligne": 1, "produit": "VB-102", "quantite": 12, "exceptions": []},
+    {"ligne": 2, "produit": "VB-104", "quantite": 6, "exceptions": []},
+    {"ligne": 3, "produit": "VB-108", "quantite": 24, "exceptions": []}
+  ]
+}

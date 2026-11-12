@@ -1,0 +1,55 @@
+{
+  "email_source": "02_centre_texte_flou.txt",
+  "destination": "exceptions",
+  "client": null,
+  "exceptions_commande": [
+    {
+      "controle": "client",
+      "pourquoi": "Deux pharmacies s'appellent Pharmacie du Centre et l'email ne donne ni code client ni code postal.",
+      "suggestion": ["C1001", "C1002"]
+    }
+  ],
+  "lignes": [
+    {
+      "ligne": 1,
+      "produit": null,
+      "quantite": 2,
+      "exceptions": [
+        {
+          "controle": "reference",
+          "pourquoi": "Aucun code produit. « déo » peut désigner deux déodorants du catalogue.",
+          "suggestion": ["VB-105", "VB-106"]
+        },
+        {
+          "controle": "quantite",
+          "pourquoi": "Quantité donnée en cartons : le nombre d'unités n'est pas écrit.",
+          "suggestion": []
+        }
+      ]
+    },
+    {
+      "ligne": 2,
+      "produit": null,
+      "quantite": 12,
+      "exceptions": [
+        {
+          "controle": "reference",
+          "pourquoi": "Aucun code produit. Le libellé ressemble à la crème mains du catalogue.",
+          "suggestion": ["VB-102"]
+        }
+      ]
+    },
+    {
+      "ligne": 3,
+      "produit": null,
+      "quantite": 6,
+      "exceptions": [
+        {
+          "controle": "reference",
+          "pourquoi": "Aucun code produit. Le libellé ressemble au gel douche du catalogue.",
+          "suggestion": ["VB-104"]
+        }
+      ]
+    }
+  ]
+}

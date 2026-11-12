@@ -1,0 +1,12 @@
+De : contact@pharmacie-des-remparts.example
+À : adv@velbrume.example
+Date : 09/11/2026 08:40
+Objet : Bon de commande BC-2026-0457
+Pièce jointe : pieces_jointes/05_bon_de_commande.pdf
+
+Bonjour,
+
+Veuillez trouver ci-joint notre bon de commande.
+
+Cordialement,
+Pharmacie des Remparts

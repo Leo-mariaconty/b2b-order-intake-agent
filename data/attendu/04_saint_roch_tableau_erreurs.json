@@ -1,0 +1,34 @@
+{
+  "email_source": "04_saint_roch_tableau_erreurs.txt",
+  "destination": "exceptions",
+  "client": "C1005",
+  "exceptions_commande": [],
+  "lignes": [
+    {"ligne": 1, "produit": "VB-107", "quantite": 12, "exceptions": []},
+    {
+      "ligne": 2,
+      "produit": null,
+      "quantite": 6,
+      "exceptions": [
+        {
+          "controle": "reference",
+          "pourquoi": "L'EAN 2055501001192 contient une faute de frappe (clé de contrôle fausse). Le libellé ressemble à la crème solaire.",
+          "suggestion": ["VB-109"]
+        }
+      ]
+    },
+    {
+      "ligne": 3,
+      "produit": "VB-111",
+      "quantite": 120,
+      "exceptions": [
+        {
+          "controle": "quantite",
+          "pourquoi": "120 dépasse le plafond par ligne (100). Probablement 12.",
+          "suggestion": []
+        }
+      ]
+    },
+    {"ligne": 4, "produit": "VB-112", "quantite": 24, "exceptions": []}
+  ]
+}

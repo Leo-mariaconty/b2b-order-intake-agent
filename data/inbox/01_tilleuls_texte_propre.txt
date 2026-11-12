@@ -1,0 +1,18 @@
+De : commandes@pharmacie-des-tilleuls.example
+À : adv@velbrume.example
+Date : 03/11/2026 09:12
+Objet : Commande novembre - Pharmacie des Tilleuls (client C1003)
+
+Bonjour,
+
+Merci de nous livrer la commande suivante (notre référence : CDE-TIL-2311) :
+
+- 12 x Crème mains réparatrice 75 ml (EAN 2055501001023)
+- 6 x Gel douche surgras 400 ml (EAN 2055501001047)
+- 24 x Stick lèvres nourrissant 4 g (EAN 2055501001085)
+
+Notre code client est C1003.
+
+Cordialement,
+Pharmacie des Tilleuls
+12 rue des Tilleuls, 44990 Saint-Avel-des-Marais

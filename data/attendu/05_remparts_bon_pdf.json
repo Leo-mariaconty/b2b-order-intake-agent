@@ -1,0 +1,12 @@
+{
+  "email_source": "05_remparts_bon_pdf.txt",
+  "destination": "import_odoo",
+  "client": "C1007",
+  "exceptions_commande": [],
+  "lignes": [
+    {"ligne": 1, "produit": "VB-105", "quantite": 12, "exceptions": []},
+    {"ligne": 2, "produit": "VB-107", "quantite": 6, "exceptions": []},
+    {"ligne": 3, "produit": "VB-111", "quantite": 12, "exceptions": []},
+    {"ligne": 4, "produit": "VB-112", "quantite": 36, "exceptions": []}
+  ]
+}
