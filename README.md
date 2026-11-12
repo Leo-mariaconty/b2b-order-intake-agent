@@ -141,7 +141,7 @@ python -m pytest
 ```
 
 `python -m src.main` relit les JSON de `data/extractions/` et réécrit les trois
-fichiers de `sorties/`. `python -m pytest` lance les 75 tests : chaque contrôle
+fichiers de `sorties/`. `python -m pytest` lance les 78 tests : chaque contrôle
 (cas passants et cas en échec), la clé EAN, l'écriture du CSV Odoo, et un test
 de bout en bout comparé aux résultats attendus de `data/attendu/`.
 
@@ -168,9 +168,27 @@ leurs lignes, vérifié dans la documentation Odoo. Les colonnes se règlent dan
 [`odoo_colonnes.yaml`](odoo_colonnes.yaml). La marche à suivre pour le tester
 est dans [`docs/test_odoo.md`](docs/test_odoo.md).
 
-> **À COMPLÉTER : résultat du test dans une base Odoo.** L'import des clients,
-> des produits puis des commandes dans une base Odoo Online reste à faire.
-> Résultat et capture d'écran à venir.
+**Testé dans une vraie base Odoo.** Le 12 novembre 2026, j'ai importé les
+clients, les produits puis les commandes dans une base Odoo Online (interface
+en français, application Ventes seule).
+
+Ce qui a marché du premier coup :
+- `sorties/import_odoo.csv`, tel quel : les 6 colonnes reconnues sans
+  intervention, 2 devis créés avec les bons clients, lignes, dates et montants
+  (136,20 et 279,00 hors taxes) ;
+- les 12 produits, avec leurs références internes et leurs prix.
+
+Deux défauts trouvés, tous deux sur le fichier des clients :
+
+| Défaut constaté | Correction |
+|---|---|
+| La colonne `is_company` n'est pas importable dans cette version. Odoo l'a reliée au champ « Société » et le test a échoué | Colonne retirée |
+| Sans marque BOM en tête de fichier, « Marché » est arrivé en « MarchÃ© » | Les trois fichiers d'import sont écrits en UTF-8 avec BOM |
+
+Chaque défaut a maintenant un test qui l'empêche de revenir. Une précision : le
+fichier des commandes a été importé avant l'ajout de la marque BOM, pas après.
+
+![Le devis de la Pharmacie des Tilleuls créé par l'import, dans Odoo](docs/images/test_odoo.png)
 
 **Où regarder**
 

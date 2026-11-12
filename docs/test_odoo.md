@@ -3,11 +3,22 @@
 Objectif : vérifier que `sorties/import_odoo.csv` crée bien deux devis dans une
 vraie base Odoo, sans ressaisie.
 
-**État de cette procédure.** Elle a été préparée à partir de la documentation
-Odoo et du code source d'Odoo 19 (module d'import), pas encore déroulée dans
-une base. Les intitulés français viennent des fichiers de traduction d'Odoo 19 :
-ils peuvent varier légèrement selon la version. Le résultat du test est noté
-dans le README.
+**État de cette procédure.** Elle a été déroulée le 12 novembre 2026 dans une
+base Odoo Online, interface en français, avec l'application Ventes seule.
+
+- Commandes : les 6 colonnes ont été reconnues sans intervention et les 2 devis
+  ont été créés avec les bons clients, lignes, dates et montants.
+- Produits : les 12 ont été importés, références internes et prix corrects.
+- Clients : le test a révélé deux défauts, corrigés depuis dans les fichiers du
+  dépôt. La colonne `is_company` n'était pas importable (Odoo la reliait au
+  champ « Société »), elle a été retirée. Sans marque BOM en tête de fichier,
+  les accents étaient abîmés : les trois fichiers sont maintenant écrits en
+  UTF-8 avec BOM.
+
+Une précision : le fichier des commandes a été importé avant l'ajout de la
+marque BOM. Les fichiers clients et produits l'ont été avec.
+
+Les intitulés français peuvent varier légèrement selon la version d'Odoo.
 
 ## Avant de commencer
 
@@ -27,7 +38,8 @@ doivent donc exister avant.
 
 Les titres de colonnes des trois fichiers sont les noms techniques des champs
 Odoo (`partner_id`, `default_code`...). C'est voulu : ils sont reconnus quelle
-que soit la langue de l'interface.
+que soit la langue de l'interface. Les trois fichiers sont en UTF-8 avec une
+marque BOM en tête, pour que les accents arrivent intacts.
 
 ## Les gestes communs aux trois imports
 
@@ -53,7 +65,6 @@ Menu : **Ventes > Commandes > Clients**. Fichier : `odoo/clients.csv`.
 |---|---|
 | `id` | ID externe |
 | `name` | Nom |
-| `is_company` | Est une société |
 | `ref` | Référence |
 | `zip` | Code postal |
 | `city` | Ville |
@@ -109,7 +120,8 @@ Odoo pour les commandes à plusieurs lignes.
 
 Ce que vous devez voir après l'import :
 - le message « 2 enregistrements importés avec succès » ;
-- deux devis, à l'état « Devis » (rien n'est confirmé ni envoyé) :
+- deux devis, à l'état « Devis » (rien n'est confirmé ni envoyé). Leur numéro
+  (S00003 et S00004 pendant le test) dépend de votre base :
 
 | Client | Référence client | Date | Lignes | Montant hors taxes |
 |---|---|---|---|---|
@@ -128,10 +140,16 @@ Le montant hors taxes est le chiffre à comparer. Le montant toutes taxes dépen
 des taxes réglées dans votre base. Si l'heure affichée est décalée d'une heure
 ou deux, c'est le fuseau horaire de votre compte Odoo, pas une erreur du fichier.
 
-Pour le README : faites une capture d'écran du devis de la Pharmacie des
-Tilleuls ouvert, et enregistrez-la sous `docs/images/test_odoo.png`.
+La capture du test du 12 novembre 2026 : [`images/test_odoo.png`](images/test_odoo.png).
 
 ## Si quelque chose ne se passe pas comme prévu
+
+**Une colonne est reliée à un champ inattendu**
+C'est arrivé pendant le test : une colonne `is_company`, retirée depuis, avait
+été reliée au champ « Société », et **Tester** répondait « Aucun enregistrement
+trouvé pour nom 'True' dans le champ 'Société' ». Si une colonne est reliée à
+un champ qui ne figure pas dans le tableau de l'étape, videz le champ Odoo en
+face (la croix) pour ne pas l'importer, et notez-le.
 
 **Une colonne affiche « Pour importer, sélectionnez un champ... »**
 Odoo n'a pas relié la colonne tout seul. Cliquez sur cette zone et choisissez le
@@ -144,8 +162,11 @@ seconde. Notez la colonne concernée : c'est une information utile pour ajuster
 **« Une seule colonne a été trouvée dans le fichier »**
 Dans le panneau **Formatage**, à gauche, réglez **Séparateur** sur « Virgule ».
 
-**Les accents sont abîmés dans l'aperçu**
-Dans **Formatage**, réglez **Encodage** sur « utf-8 ».
+**Les accents sont abîmés (« MarchÃ© » au lieu de « Marché »)**
+C'est arrivé pendant le test avec un fichier sans marque BOM, alors que le
+panneau **Formatage** affichait bien « utf-8 ». Les fichiers du dépôt portent
+maintenant cette marque. Si vous les avez ouverts puis réenregistrés avec un
+tableur, la marque a pu disparaître : retéléchargez le fichier depuis le dépôt.
 
 **« Aucun enregistrement correspondant trouvé pour l'id externe 'client_C1003' dans le champ 'Client' »**
 Les clients n'ont pas été importés, ou l'ont été sans la colonne `id`. Refaites
